@@ -59,6 +59,44 @@ The solution follows a structured approach:
 - Generates responses using Google GenAI.
 - Reflects on the response accuracy and refines if necessary.
 
+
+### Step 5: Reflect Node and Retrieval Process
+
+#### Scenarios:
+
+#### 1️⃣ **Only Generation Runs Again**
+- **Condition**: AI’s response is slightly wrong, but the retrieved documents were correct.
+- **Example**:  
+  **User asks**: "What is the capital of India?"  
+  - Retrieval fetches: "New Delhi is the capital of India."
+  - AI responds: "Delhi is the capital of India."
+  - Reflect detects a minor error but keeps the question unchanged. The system only regenerates the response, correcting it to "New Delhi."
+
+**Why**: Retrieval is skipped because the retrieved documents were correct. The error was in the AI's generation.
+
+---
+
+#### 2️⃣ **Both Retrieval and Generation Run Again**
+- **Condition**: AI’s response is incorrect because the retrieved documents were incomplete or irrelevant.
+- **Example**:  
+  **User asks**: "What is Einstein’s equation?"  
+  - Retrieval fetches: "Einstein was a famous physicist" (no mention of the equation).
+  - AI responds: "Einstein's equation is about relativity."
+  - Reflect suggests better wording: "Explain Einstein’s famous equation E = mc²."
+  - Retrieval is done again with the new query, and AI generates the correct answer: "E = mc² is Einstein’s mass-energy equivalence equation."
+
+**Why**: Retrieval is triggered again because the original documents were incomplete. Reflection suggested a new question, leading to better results.
+
+---
+
+#### Summary
+| **Condition**                                                      | **Action**                                              |
+|--------------------------------------------------------------------|---------------------------------------------------------|
+| AI's response is slightly wrong, but retrieved docs were fine      | 🔄 **Only generation runs again** (retrieval skipped)   |
+| AI's response is wrong due to incomplete or irrelevant docs       | 🔄 **Both retrieval and generation run again**          |
+
+
+
 ### Step 5: Streamlit UI Interaction
 - Displays chat history and responses dynamically.
 - Allows users to clear chat history.
@@ -112,7 +150,7 @@ The solution follows a structured approach:
 
 4. Start the chatbot:
    ```bash
-   streamlit run trial.py
+   streamlit run main.py
    ```
 
 ---
@@ -123,15 +161,3 @@ The solution follows a structured approach:
 - The chatbot will retrieve relevant information using **Qdrant** and **Google Generative AI**.
 
 ---
-
-## **Contributing**
-- Fork the repository.
-- Create a new branch (`feature-new-feature`).
-- Commit your changes.
-- Submit a pull request.
-
----
-
-## **License**
-This project is licensed under the MIT License. See `LICENSE` for details.
-
