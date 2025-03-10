@@ -4,12 +4,10 @@
 
 ## Workflow Diagram
 
-Below is the high-level workflow of the chatbot system:
-
-![Workflow](workflow.png)
-
 ## 1. Overview
 This Python file implements a Streamlit-based chatbot that performs Retrieval-Augmented Generation (RAG) using Qdrant vector store and Google Generative AI embeddings. It extracts text from PDFs (including images via OCR), stores vectorized text chunks, and enables users to chat with the system using an authentication mechanism.
+Below is the high-level workflow of the chatbot system:
+![Workflow](workflow.png)
 
 ## 2. High-Level Design
 The application consists of the following main components:
