@@ -16,7 +16,7 @@ The chatbot enables users to upload PDFs, extract and store text embeddings, and
 
 ### **Risks**
 
-| **ID** | **Risk** | **Mitigation/Action Plan** |
+| **ID** | **R:Risk|A:Assumption|I:Issue|D:Dependency** | **Mitigation/Action Plan** |
 |--------|---------|-----------------------------|
 | **R1** | Data Security Risk: User credentials stored in JSON are not secure. | Implement **hashed passwords** (bcrypt) and consider **OAuth authentication**. |
 | **R2** | Qdrant Downtime: If Qdrant is down, document retrieval will fail. | Implement a **backup vector store** (e.g., FAISS) or a fallback mechanism. |
