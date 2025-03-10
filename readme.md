@@ -1,6 +1,12 @@
 # **RAG Chatbot - README**
 
-# High-Level Design and Solution Approach for `trial.py`
+# High-Level Design and Solution Approach 
+
+## Workflow Diagram
+
+Below is the high-level workflow of the chatbot system:
+
+![Workflow](workflow.png)
 
 ## 1. Overview
 This Python file implements a Streamlit-based chatbot that performs Retrieval-Augmented Generation (RAG) using Qdrant vector store and Google Generative AI embeddings. It extracts text from PDFs (including images via OCR), stores vectorized text chunks, and enables users to chat with the system using an authentication mechanism.
@@ -64,7 +70,7 @@ The solution follows a structured approach:
 
 #### Scenarios:
 
-#### 1️⃣ **Only Generation Runs Again**
+#### 5.1. **Only Generation Runs Again**
 - **Condition**: AI’s response is slightly wrong, but the retrieved documents were correct.
 - **Example**:  
   **User asks**: "What is the capital of India?"  
@@ -74,9 +80,8 @@ The solution follows a structured approach:
 
 **Why**: Retrieval is skipped because the retrieved documents were correct. The error was in the AI's generation.
 
----
 
-#### 2️⃣ **Both Retrieval and Generation Run Again**
+#### 5.2. **Both Retrieval and Generation Run Again**
 - **Condition**: AI’s response is incorrect because the retrieved documents were incomplete or irrelevant.
 - **Example**:  
   **User asks**: "What is Einstein’s equation?"  
@@ -92,8 +97,8 @@ The solution follows a structured approach:
 #### Summary
 | **Condition**                                                      | **Action**                                              |
 |--------------------------------------------------------------------|---------------------------------------------------------|
-| AI's response is slightly wrong, but retrieved docs were fine      | 🔄 **Only generation runs again** (retrieval skipped)   |
-| AI's response is wrong due to incomplete or irrelevant docs       | 🔄 **Both retrieval and generation run again**          |
+| AI's response is slightly wrong, but retrieved docs were fine      |  **Only generation runs again** (retrieval skipped)   |
+| AI's response is wrong due to incomplete or irrelevant docs       |  **Both retrieval and generation run again**          |
 
 
 
@@ -119,7 +124,6 @@ The solution follows a structured approach:
 | **ID** | **Description** | **Mitigation/Action Plan** |
 |--------|---------|-----------------------------|
 | **R1** | Data Security Risk: User credentials stored in JSON are not secure. | Implement **hashed passwords** (bcrypt) and consider **OAuth authentication**. |
-| **R2** | Qdrant Downtime: If Qdrant is down, document retrieval will fail. | Implement a **backup vector store** (e.g., FAISS) or a fallback mechanism. |
 | **R3** | Slow Response Time: Large PDFs can cause delays. | Optimize chunking strategy and cache embeddings for frequent queries. |
 | **A1** | Users upload clear, readable PDFs. | Provide error handling for invalid PDFs and notify users about poor-quality images. |
 | **I1** | Incorrect retrieval: Retrieved documents may not be contextually relevant. | Improve **vector search ranking** with metadata-based filtering. |
