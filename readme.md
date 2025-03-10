@@ -135,14 +135,14 @@ The solution follows a structured approach:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/RAG-chatbot.git
+   git clone https://github.com/Harsh-Kapoor7/GraphRAG-Task.git
    cd RAG-chatbot
    ```
 
 2. Create a virtual environment:
    ```bash
    python -m venv venv
-   source venv/bin/activate  # On Windows use: venv\Scripts\activate
+   source venv/bin/activate  (for linux)
    ```
 
 3. Install dependencies:
