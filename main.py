@@ -10,21 +10,21 @@ from langchain import hub
 def chat_interface(app):
     st.title("📚 Qdrant-Powered RAG Chatbot")
 
-    # ✅ Ensure chat history is initialized
+    # Ensure chat history is initialized
     if "history" not in st.session_state:
         st.session_state.history = []
 
-    # ✅ Button to clear chat history
+    # Button to clear chat history
     if st.button("🗑️ Clear Chat"):
         st.session_state.history = []  # Reset chat history
         st.rerun()  # Refresh UI
 
-    # ✅ Display previous chat history
+    # Display previous chat history
     for message in st.session_state.history:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-    # ✅ Get user input
+    # Get user input
     user_input = st.chat_input("Ask something...")
 
     if user_input:
@@ -34,19 +34,19 @@ def chat_interface(app):
         counter = 0
         last_dict = None
 
-        # ✅ Stream response from chatbot
+        # Stream response from chatbot
         for event in app.stream({"question": user_input, "history": st.session_state.history}, config, stream_mode="values"):
             counter += 1
             if counter == 3:
                 last_dict = event
                 break
 
-        # ✅ Store and display user message
+        # Store and display user message
         st.session_state.history.append({"role": "user", "content": user_input})
         with st.chat_message("user"):
             st.markdown(user_input)
 
-        # ✅ Store and display bot response
+        # Store and display bot response
         if last_dict:
             response_text = last_dict['ans'].content
             st.session_state.history.append({"role": "assistant", "content": response_text})
@@ -82,11 +82,11 @@ def main():
                     st.session_state.username = username
                     st.success("Login successful! Please wait we are getting your tool ready...")
 
-                    # ✅ Initialize chatbot before rerunning UI
+                    # Initialize chatbot before rerunning UI
                     if "app" not in st.session_state or st.session_state.app is None:
                         initialize_chatbot()  
 
-                    # ✅ Avoid unnecessary rerun
+                    # Avoid unnecessary rerun
                     st.rerun()
                 else:
                     st.error("Invalid username or password")
@@ -105,7 +105,7 @@ def main():
                     st.error("Username already exists")
 
     else:
-        # ✅ Only show chatbot after successful login
+        # Only show chatbot after successful login
         st.write(f"Welcome, {st.session_state.username}! 👋")
 
         if st.button("Logout"):
@@ -114,8 +114,8 @@ def main():
             st.session_state.app = None  # Clear chatbot session
             st.rerun()
 
-        # ✅ Display chatbot after login
-        # ✅ Pass chatbot instance to chat_interface
+        # Display chatbot after login
+        # Pass chatbot instance to chat_interface
         chat_interface(st.session_state.app)
 
 
