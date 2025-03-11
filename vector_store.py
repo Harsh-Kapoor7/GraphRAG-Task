@@ -4,12 +4,14 @@ from qdrant_client.models import Distance, VectorParams, PointStruct
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
 QDRANT_COLLECTION_NAME = "document_vectors"
-QDRANT_HOST = "localhost"
+# QDRANT_HOST = "localhost"
+QDRANT_HOST = "host.docker.internal"
 QDRANT_PORT = 6333
 
 def initialize_vector_store(splits):
     embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
-    client = QdrantClient(host=QDRANT_HOST, port=QDRANT_PORT)
+    # client = QdrantClient(host=QDRANT_HOST, port=QDRANT_PORT)
+    client = QdrantClient(QDRANT_HOST, port=7333)
 
     try:
         client.get_collection(QDRANT_COLLECTION_NAME)
