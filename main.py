@@ -1,3 +1,4 @@
+import os
 import uuid
 import streamlit as st
 from authentication import authenticate, register
@@ -56,8 +57,14 @@ def chat_interface(app):
 
 
 def initialize_chatbot():
-    pdf_path = "Indika AI - Corporate Profile 2024.pdf"
-    full_text, image_paths = extract_text_and_images(pdf_path)
+    pdf_files = [f for f in os.listdir() if f.endswith(".pdf")]
+    full_text = ""
+    image_paths = []
+    for pdf in pdf_files:
+        pdf_text, pdf_image_paths = extract_text_and_images(pdf)
+        full_text += pdf_text + "\n\n"
+        image_paths.extend(pdf_image_paths)
+
     text_chunks = split_text_into_chunks(full_text)
     client, embeddings = initialize_vector_store(text_chunks)
     prompt = hub.pull("kaps/novacept")
