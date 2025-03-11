@@ -137,7 +137,7 @@ The solution follows a structured approach:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Harsh-Kapoor7/GraphRAG-Task.git
+   https://github.com/Harsh-Kapoor7/GraphRAG-Task.git
    cd RAG-chatbot
    ```
 
