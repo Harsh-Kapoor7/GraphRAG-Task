@@ -67,7 +67,7 @@ The solution follows a structured approach:
 
 
 ### Step 5: Reflect Node and Retrieval Process
-
+The reflection_node function evaluates the assistant's answer using a **reflection model**, suggests corrections if necessary, and returns the updated question, context, and history or confirms the answer as correct.
 #### Scenarios:
 
 #### 5.1. **Only Generation Runs Again**
